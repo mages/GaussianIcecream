@@ -81,16 +81,18 @@ plogis(coef(bin.glm)[1] +  coef(bin.glm)[2]*35)*market.size
 ## ------------------------------------------------------------------------
 # Paul Viefers
 # Gaussian process with binomial link function in Stan
-x1 <- seq(0, icecream$temp[1])
+# For the purpose of modelling I extend my original
+# data set for temperatures down to 0 and up to 40
+x1 <- seq(0, floor(icecream$temp[1])) # temperatues down to 0
 N1 <- length(x1)
 idx1 <- 1:N1
-x2 <- icecream$temp
+x2 <- icecream$temp # temperatures for which we have data
 N2 <- nrow(icecream)
 idx2 <- (N1+1):(N1+N2)
-x3 <- seq(icecream$temp[N2]+1.3, 40, length.out = 12)
+x3 <- seq(ceiling(icecream$temp[N2]), 40) # temperatures up to 40
 N3 <- length(x3)
 idx3 <- (N1+N2+1):(N1+N2+N3)
-x <- c(x1, x2, round(x3, 1))
+x <- c(x1, x2, x3)
 library(rstan)
 rstan_options(auto_write = TRUE)
 options(mc.cores = parallel::detectCores()-1)
