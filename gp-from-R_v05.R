@@ -43,7 +43,7 @@ legend(x="topleft", bty="n", lwd=c(2,2), lty=c(NA,1),
          col=c("#00526D","red"),  pch=c(1,NA))
 
 ## ------------------------------------------------------------------------
-exp(coef(log.lin.mod)[1])
+exp(coef(log.lin.mod)[1] + 0.5 * log.lin.sig)
 
 ## ------------------------------------------------------------------------
 pois.mod <- glm(units ~ temp, data=icecream, 
