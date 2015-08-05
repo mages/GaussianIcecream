@@ -117,7 +117,7 @@ ice.res <- stan(fit = ice.fit,
                 seed=123)
 
 posterior.prediction <- extract(ice.res, pars = 'n_sold', permute = TRUE)
-median.prediction <- apply(ys$n_sold, 2, median)
+median.prediction <- apply(posterior.prediction$n_sold, 2, median)
 prediction.bands <- apply(posterior.prediction$n_sold, 2, quantile, probs = c(0.025,0.05,0.95, 0.975))
 # Show the fit of the model against actual data
 # Markus' basic plot with the Gaussian process against actual data
